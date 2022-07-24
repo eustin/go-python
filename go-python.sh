@@ -21,7 +21,10 @@ mkdir $project_name
 printf "created $PWD/$project_name\n"
 
 cd $project_name
-git init
+printf "Initialising git repository...\n"
+git init &> /dev/null
+
+printf "Initialising Pipenv...hold on...\n"
 pipenv install
 pipenv run pipenv install --dev pytest 
 
