@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-printf "=== Go Python! ===\n\n"
+printf "=== Go, Python! ===\n\n"
 
 # check if Pipenv in installed
 if ! command -v pipenv &> /dev/null 
