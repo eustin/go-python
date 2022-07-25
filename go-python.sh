@@ -34,5 +34,5 @@ printf "**/.env\n" > .gitignore
 printf "**/__pychache__" >> .gitignore
 mkdir src tests
 
-printf "Dropping you into your Pipenv. Happy Python-ing!"
+printf "Dropping you into your Pipenv. Happy Python-ing!\n\n"
 pipenv shell
