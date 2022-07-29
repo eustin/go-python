@@ -1,19 +1,47 @@
 #!/usr/bin/env bash
 
-printf "=== Go, Python! ===\n\n"
+printf "=== Go, Python! ===\n"
 
-# check if Pipenv in installed
-if ! command -v pipenv &> /dev/null 
-then 
+if (! command -v pipenv &> /dev/null); then 
     printf "Please install Pipenv before proceeding\n"
     exit
 fi
 
-if ! command -v git &> /dev/null
-then
+if (! command -v git &> /dev/null); then
     printf "Please install git before proceeding\n"
     exit
 fi
+
+while getopts ":i:" options; do
+    case $options in
+        i)
+            # install a python package using pipenv and pin the package to a specific version number in the Pipfile
+
+            package_name=$OPTARG
+            # TODO: test if Pipenv exists
+            # TODO: test for installation failure
+            pipenv install $package_name
+            package_version_regex="$package_name\=\="
+            package_version=$(pip freeze | grep -i $package_version_regex | cut -d "=" -f 3)
+            if [ -z $package_version ]; then
+                printf "Uh oh...Spaghetti-os...something went wrong when extracting the package version number! Please report this.\n"
+                printf "You'll need to manually pin the $package_name package's version number in the Pipfile. Sorry!\n"
+                exit 1 
+            fi
+            sed -i.bak "s/$package_name.*/$package_name = \"==$package_version\"/i" Pipfile
+            printf "The package should be pinned to a specific version in your Pipfile.\n"
+            printf "If the Pipfile looks messed up, recover it using the Pipfile.bak file that was just created!\n"
+            exit 0 
+            ;;
+        :) 
+            printf -- "Please provide -$OPTARG a valid Python package name.\n"
+            exit 1
+            ;;
+        \?) printf -- "-$OPTARG is not a valid option.\n"
+            exit 1
+            ;;
+    esac
+done
 
 printf "What do you want your project directory to be called? Press enter to use current directory.\n"
 read project_name
@@ -35,9 +63,10 @@ pipenv run pipenv install --dev pytest
 
 # create files and folders commonly used in python projects
 touch main.py
-printf "**/.env\n" > .gitignore
-printf "**/__pychache__" >> .gitignore
+printf "**/.env" > .gitignore
+printf "\n**/__pychache__" >> .gitignore
+printf "\n**/Pipfile.bak" >> .gitignore
 mkdir src tests
 
-printf "Dropping you into your Pipenv. Happy Python-ing!\n\n"
+printf "Dropping you into your Pipenv. Go, Python, Go!\n\n"
 pipenv shell
