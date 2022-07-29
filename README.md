@@ -20,6 +20,6 @@ This script creates a new project directory, installs a Pipenv, initialises a gi
 
 ## How to use
 
-Navigate to the root directory where you want to create your Python project and type `go-python` and follow the prompts.
+Navigate to the root directory where you want to create your Python project and type `gopython` and follow the prompts.
 
-Oh yeah. Go, Python!
+Oh yeah. Go, Python, Go!
