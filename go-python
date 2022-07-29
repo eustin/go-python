@@ -15,12 +15,17 @@ then
     exit
 fi
 
-printf "What do you want your project directory to be called?\n"
+printf "What do you want your project directory to be called? Press enter to use current directory.\n"
 read project_name
-mkdir $project_name
-printf "created $PWD/$project_name\n"
 
-cd $project_name
+if [ ! -z $project_name ]; then
+    mkdir $project_name
+    printf "created $PWD/$project_name\n"
+    cd $project_name
+else
+    printf "Initialising project in $PWD...\n"
+fi
+
 printf "Initialising git repository...\n"
 git init &> /dev/null
 
