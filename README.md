@@ -33,3 +33,7 @@ In a folder with a `Pipenv`, issue `gopython -i <python package name>`.
 This will use the `Pipenv` CLI to install the package and generate the `Pipfile.lock` file. It will also update your Pipfile with the version of the package that was just installed so that you don't have to manually specifcy its version in your Pipfile.  
 
 Oh yeah. Go, Python, Go!
+
+## Credit
+
+* Thank you to `cdarke` and [their answer on stackoverflow](https://stackoverflow.com/a/30423437/11264156) for helping me deal with empty package name arguments.

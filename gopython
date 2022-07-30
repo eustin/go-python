@@ -19,8 +19,12 @@ while getopts ":i:" options; do
 
             package_name=$OPTARG
             # TODO: test if Pipenv exists
-            # TODO: test for installation failure
             pipenv install $package_name
+
+            if [ $? != 0 ]; then
+             exit 1
+            fi
+
             package_version_regex="$package_name\=\="
             package_version=$(pip freeze | grep -i $package_version_regex | cut -d "=" -f 3)
             if [ -z $package_version ]; then
