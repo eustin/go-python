@@ -59,6 +59,7 @@ fi
 
 printf "Initialising git repository...\n"
 git init &> /dev/null
+git checkout -b main &> /dev/null
 
 printf "Initialising Pipenv...hold on...\n"
 pipenv install
