@@ -16,14 +16,13 @@ while getopts ":i:" options; do
     case $options in
         i)
             # install a python package using pipenv and pin the package to a specific version number in the Pipfile
-
             package_name=$OPTARG
-            # TODO: test if Pipenv exists
-            pipenv install $package_name
 
-            if [ $? != 0 ]; then
-             exit 1
-            fi
+            # check if pipenv exists
+            pipenv --venv || exit 1
+
+            # try to install the package using pipenv
+            pipenv install $package_name || exit 1
 
             package_version_regex="$package_name\=\="
             package_version=$(pip freeze | grep -i $package_version_regex | cut -d "=" -f 3)
