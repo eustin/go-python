@@ -8,7 +8,7 @@ You can use it to install packages into your Pipenv and automatically pin packag
 
 ## Requirements
 
-* Bash
+* zsh
 * Pipenv
 * Git
 
